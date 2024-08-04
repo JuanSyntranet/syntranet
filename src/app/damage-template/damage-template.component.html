@@ -1,0 +1,63 @@
+<div class="damage-template-container h-full">
+  <h3 class="font-bold text-[20px] mb-4">Lista de daños</h3>
+  <div class="hidden md:flex flex-wrap justify-center gap-2">
+    <button
+      *ngFor="let tipo of tipos"
+      class="damage-button bg-gray-200 rounded-full py-2 px-4"
+      (click)="addValue(tipo.value)"
+    >
+      {{ tipo.label }}
+    </button>
+    <button
+      *ngIf="canvas && canvas.getActiveObject()"
+      class="damage-button warn bg-red-500 text-white rounded-full py-2 px-4"
+      (click)="deleteSelected()"
+    >
+      <i class="pi pi-trash"></i> Eliminar seleccionado
+    </button>
+  </div>
+  <div class="relative image-container mt-4">
+    <canvas #canvas2 id="canvas"></canvas>
+  </div>
+  <div
+    #buttonsContainer
+    class="fixed bottom-4 z-50 right-4 flex flex-col items-end space-y-2 md:hidden"
+  >
+    <div
+      [ngClass]="{ 'slide-in': showButtons, 'slide-out': !showButtons }"
+      class="flex flex-col space-y-2 overflow-y-auto h-[400px]"
+    >
+      <button
+        *ngFor="let tipo of tipos"
+        class="damage-button bg-gray-200 rounded-full py-2 px-4 glass-effect"
+        (click)="addValue(tipo.value)"
+      >
+        {{ tipo.label }}
+      </button>
+      <!-- <button
+        *ngIf="canvas && canvas.getActiveObject()"
+        class="damage-button warn bg-red-500 text-white rounded-full py-2 px-4"
+        (click)="deleteSelected()"
+      >
+        <i class="pi pi-trash"></i>
+      </button> -->
+    </div>
+    <button
+      class="glass-effect-blue rounded-full w-[40px] h-[40px] flex justify-center items-center"
+      (click)="toggleButtons()"
+    >
+      <lord-icon
+        [src]="
+          !showButtons
+            ? 'https://cdn.lordicon.com/dwoxxgps.json'
+            : 'https://cdn.lordicon.com/rmkahxvq.json'
+        "
+        trigger="loop"
+        delay="2000"
+        colors="primary:white"
+        style="width: 90%; height: 90%"
+      >
+      </lord-icon>
+    </button>
+  </div>
+</div>

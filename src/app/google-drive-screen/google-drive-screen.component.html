@@ -1,0 +1,172 @@
+<div class="google-drive-screen-container flex flex-col h-full">
+  <!-- PC Layout -->
+  <div class="hidden md:flex flex-grow flex-col">
+    <div class="flex-grow flex h-[70%]">
+      <!-- Sidebar -->
+      <div class="sidebar w-1/3 p-4 bg-gray-100 overflow-y-auto">
+        <div class="search-bar mb-4">
+          <div class="relative">
+            <p-iconField iconPosition="left" class="w-full">
+              <p-inputIcon>
+                <i class="pi pi-search absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+              </p-inputIcon>
+              <input
+                pInputText
+                type="text"
+                class="w-full pl-10"
+                (input)="filterFolders($event)"
+                placeholder="Buscar carpeta..."
+              />
+            </p-iconField>
+          </div>
+        </div>
+        <div class="folders grid grid-cols-3 gap-4">
+          <div
+            *ngFor="let folder of filteredFolders"
+            class="folder relative flex flex-col items-center justify-center bg-gray-200 p-4"
+            (click)="selectFolder(folder)"
+          >
+            <lord-icon
+              src="https://cdn.lordicon.com/bgitlnnj.json"
+              trigger="hover"
+              colors="primary:#ffc738,secondary:#ffffff"
+              style="width: 100px; height: 100px"
+            >
+            </lord-icon>
+            <div
+              class="folder-name absolute inset-0 flex justify-center items-center text-black font-bold"
+            >
+              {{ folder.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content w-2/3 p-4 flex flex-col">
+        <!-- Large Image View -->
+        <div
+          class="large-image flex-grow mb-4 bg-gray-300 rounded-xl flex justify-center items-center"
+        >
+          <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name" class="max-w-full max-h-full"/>
+          <span *ngIf="!selectedImage" class="text-[25px]">Selecciona una imagen</span>
+        </div>
+
+        <!-- Carousel -->
+        <div class="carousel flex space-x-2 overflow-x-auto mb-4">
+          <div *ngIf="!selectedFolder?.images" class="w-[100%] text-[25px] flex justify-center items-center border border-gray-400 rounded-xl">
+            <span>Selecciona carpeta</span>
+          </div>
+          <div
+            *ngFor="let image of selectedFolder?.images"
+            class="small-image rounded-xl bg-gray-400 p-4 min-w-[100px] cursor-pointer"
+            (click)="selectImage(image)"
+          >
+            <img [src]="image.url" [alt]="image.name" class="max-w-full max-h-full"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Damage List -->
+     <div class="h-[30%] w-full overflow-y-auto bg-gray-100 p-4">
+      <h3 class="font-bold text-[20px] text-center mt-4 mb-4">Lista de daños</h3>
+      <div class="damage-items flex">
+        <div *ngFor="let row of tabla" class="flex flex-col items-center mr-4">
+          <p-selectButton
+            [options]="damageOptions"
+            [(ngModel)]="row[0].value"
+            class="damage-selector"
+          ></p-selectButton>
+          <span class="tipo-label">{{ row[0].label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tablet and Mobile Layout -->
+  <div class="md:hidden flex flex-col flex-grow">
+    <!-- Main Content -->
+    <div class="main-content w-full h-[50%] p-4 flex flex-col">
+      <!-- Large Image View -->
+      <div
+        class="large-image-tablet rounded-xl sm:large-image-mobile flex-grow mb-4 bg-gray-300 flex justify-center items-center"
+      >
+        <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name" class="max-w-full max-h-full"/>
+        <span *ngIf="!selectedImage" class=" text-[20px]">Selecciona una imagen</span>
+      </div>
+
+      <!-- Carousel -->
+      <div class="carousel flex space-x-2 overflow-x-auto mb-4  ">
+        <div *ngIf="!selectedFolder?.images" class="w-[100%] text-[20px] flex justify-center items-center border border-gray-400 rounded-xl">
+          <span>Selecciona carpeta</span>
+        </div>
+        <div
+          *ngFor="let image of selectedFolder?.images"
+          class="small-image bg-gray-400 rounded-xl p-4 min-w-[100px] cursor-pointer"
+          (click)="selectImage(image)"
+        >
+          <img [src]="image.url" [alt]="image.name" class="max-w-full max-h-full"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Content -->
+    <div class="bottom-content flex flex-col sm:flex-row flex-grow">
+      <!-- Sidebar -->
+      <div class="sidebar sm:w-full md:w-1/2 p-4 bg-gray-100 overflow-y-auto">
+        <div class="search-bar mb-4">
+          <div class="relative">
+            <p-iconField iconPosition="left" class="w-full">
+              <p-inputIcon>
+                <i class="pi pi-search absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+              </p-inputIcon>
+              <input
+                pInputText
+                type="text"
+                class="w-full pl-10"
+                (input)="filterFolders($event)"
+                placeholder="Buscar carpeta..."
+              />
+            </p-iconField>
+          </div>
+        </div>
+        <div class="folders grid grid-cols-3 gap-4">
+          <div
+            *ngFor="let folder of filteredFolders"
+            class="folder relative flex flex-col items-center justify-center bg-gray-200 p-4 "
+            (click)="selectFolder(folder)"
+          >
+            <lord-icon
+              src="https://cdn.lordicon.com/bgitlnnj.json"
+              trigger="hover"
+              colors="primary:#ffc738,secondary:#ffffff"
+              style="width: 100px; height: 100px"
+            >
+            </lord-icon>
+            <div
+              class="folder-name absolute inset-0 flex justify-center items-center text-black font-bold"
+            >
+              {{ folder.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Damage List -->
+      <div class="sm:w-full sm:h-full md:w-1/2 bg-gray-100 p-4">
+        <h3 class="font-bold text-[20px] text-center mt-4 mb-4">Lista de daños</h3>
+        <div class="damage-items flex  sm:flex-col overflow-x-auto h-full">
+          <div *ngFor="let row of tabla" class="flex flex-col items-center mr-4">
+            <p-selectButton
+              [options]="damageOptions"
+              [(ngModel)]="row[0].value"
+              class="damage-selector"
+            ></p-selectButton>
+            <span class="tipo-label">{{ row[0].label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

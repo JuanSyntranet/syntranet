@@ -1,0 +1,87 @@
+.slide-in {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    visibility 0.5s;
+}
+
+.slide-out {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    visibility 0.5s;
+}
+.damage-template-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh; 
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.damage-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.damage-button:hover {
+  background-color: #e0e0e0;
+}
+
+.damage-button.warn {
+  background-color: #f44336;
+  color: white;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  object-fit: contain;
+}
+
+.delete-button {
+  position: absolute;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.2); 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+}
+
+.glass-effect-blue {
+  background: rgba(0, 123, 255, 0.2); 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+}

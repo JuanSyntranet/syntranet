@@ -1,0 +1,126 @@
+*{
+  box-sizing: border-box;
+}
+.google-drive-screen-container {
+  height: 100vh;
+}
+
+/* .sidebar {
+
+}
+
+.main-content {
+
+} */
+
+.large-image {
+  height: 50%; 
+}
+
+.large-image-tablet {
+  height: 70%; 
+}
+
+.large-image-mobile {
+  height: 80%;
+}
+
+.carousel {
+  height: 20%; 
+}
+
+.folder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.folder-name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  pointer-events: none;
+}
+
+.small-image,
+.damage-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bottom-content {
+  height: 30%; 
+  height: 40%; 
+}
+
+.damage-items {
+ 
+  white-space: nowrap;
+}
+
+.damage-selector .p-selectbutton {
+  border-radius: 15px;
+}
+
+.damage-selector .p-button {
+  border-radius: 15px;
+  padding: 0 5px;
+}
+
+.damage-selector .p-button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.damage-selector .p-button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.damage-selector .p-button:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.tipo-label {
+  margin-left: 1rem;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+
