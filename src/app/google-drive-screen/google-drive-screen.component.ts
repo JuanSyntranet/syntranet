@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,7 +27,11 @@ interface IPlantillaDaños {
   styleUrls: ['./google-drive-screen.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class GoogleDriveScreenComponent implements OnInit {
+export class GoogleDriveScreenComponent implements OnInit, AfterViewInit {
+
+  // Carrusel de imágenes
+  currentImg: number = 1;
+
   folders: Folder[] = [
     {
       name: 'Áreas',
@@ -68,12 +72,11 @@ export class GoogleDriveScreenComponent implements OnInit {
       ]
     }
   ];
-  
+
   damages = [
     { name: 'Daño 1' },
     { name: 'Daño 2' },
     { name: 'Daño 3' },
-   
   ];
 
   selectedFolder: Folder | null = null;
@@ -84,38 +87,67 @@ export class GoogleDriveScreenComponent implements OnInit {
     { label: 'Faltante', value: 'FALTANTE' },
     { label: 'Dañado', value: 'DAÑADO' }
   ];
-  
-  tabla: IPlantillaDaños[][] = [[{ label: 'Izquierdo Frente ', value: 'OK' }, { label: 'Conector De Luz', value: 'OK' }, { label: 'Luz De Placa', value: 'OK' },],
-  [{ label: 'Izquierdo Centro ', value: 'OK' }, { label: 'Reflejantes ', value: 'OK' }, { label: 'Porta Llanta', value: 'OK' },],
-  [{ label: 'Izquierdo Trasero ', value: 'OK' }, { label: 'Caja Documental ', value: 'OK' }, { label: 'Llanta Extra', value: 'OK' },],
-  [{ label: 'Trasero Izquierdo ', value: 'OK' }, { label: 'Manivela De Patines', value: 'OK' }, { label: 'Puerta Izquierda', value: 'OK' },],
-  [{ label: 'Trasero Centro ', value: 'OK' }, { label: 'Patin Derecho', value: 'OK' }, { label: 'Puerta Derecha', value: 'OK' },],
-  [{ label: 'Trasero Derecho ', value: 'OK' }, { label: 'Patin Izquierdo', value: 'OK' }, { label: 'Empaque De Puertas', value: 'OK' },],
-  [{ label: 'Derecho Trasero ', value: 'OK' }, { label: 'Plancha De Patin Der.', value: 'OK' }, { label: 'Bisagras Puerta Izq.', value: 'OK' },],
-  [{ label: 'Derecho Centro ', value: 'OK' }, { label: 'Plancha De Patin Izq.', value: 'OK' }, { label: 'Bisagras Puerta Der.', value: 'OK' },],
-  [{ label: 'Derecho Frontal  ', value: 'OK' }, { label: 'Bolsas De Aire', value: 'OK' }, { label: 'Gancho Puerta Arriba', value: 'OK' },],
-  [{ label: 'Manitas Para Aire', value: 'OK' }, { label: 'Zoquetera Izq.', value: 'OK' }, { label: 'Gancho Puerta Abajo', value: 'OK' },],
-  [{ label: 'Líneas De Aire', value: 'OK' }, { label: 'Zoquetera Der.', value: 'OK' }, { label: 'Manivela Puerta Der.', value: 'OK' },],
-  [{ label: 'Resorte Manguera', value: 'OK' }, { label: 'Defensa', value: 'OK' }, { label: 'Manivela Puerta Izq.', value: 'OK' },],
-  ]
+
+  tabla: IPlantillaDaños[][] = [
+    [{ label: 'Izquierdo Frente ', value: 'OK' }, { label: 'Conector De Luz', value: 'OK' }, { label: 'Luz De Placa', value: 'OK' },],
+    [{ label: 'Izquierdo Centro ', value: 'OK' }, { label: 'Reflejantes ', value: 'OK' }, { label: 'Porta Llanta', value: 'OK' },],
+    [{ label: 'Izquierdo Trasero ', value: 'OK' }, { label: 'Caja Documental ', value: 'OK' }, { label: 'Llanta Extra', value: 'OK' },],
+    [{ label: 'Trasero Izquierdo ', value: 'OK' }, { label: 'Manivela De Patines', value: 'OK' }, { label: 'Puerta Izquierda', value: 'OK' },],
+    [{ label: 'Trasero Centro ', value: 'OK' }, { label: 'Patin Derecho', value: 'OK' }, { label: 'Puerta Derecha', value: 'OK' },],
+    [{ label: 'Trasero Derecho ', value: 'OK' }, { label: 'Patin Izquierdo', value: 'OK' }, { label: 'Empaque De Puertas', value: 'OK' },],
+    [{ label: 'Derecho Trasero ', value: 'OK' }, { label: 'Plancha De Patin Der.', value: 'OK' }, { label: 'Bisagras Puerta Izq.', value: 'OK' },],
+    [{ label: 'Derecho Centro ', value: 'OK' }, { label: 'Plancha De Patin Izq.', value: 'OK' }, { label: 'Bisagras Puerta Der.', value: 'OK' },],
+    [{ label: 'Derecho Frontal  ', value: 'OK' }, { label: 'Bolsas De Aire', value: 'OK' }, { label: 'Gancho Puerta Arriba', value: 'OK' },],
+    [{ label: 'Manitas Para Aire', value: 'OK' }, { label: 'Zoquetera Izq.', value: 'OK' }, { label: 'Gancho Puerta Abajo', value: 'OK' },],
+    [{ label: 'Líneas De Aire', value: 'OK' }, { label: 'Zoquetera Der.', value: 'OK' }, { label: 'Manivela Puerta Der.', value: 'OK' },],
+    [{ label: 'Resorte Manguera', value: 'OK' }, { label: 'Defensa', value: 'OK' }, { label: 'Manivela Puerta Izq.', value: 'OK' },],
+  ];
 
   constructor() {}
 
   ngOnInit(): void {}
 
+  ngAfterViewInit(): void {}
+
   filterFolders(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredFolders = this.folders.filter(folder => 
+    this.filteredFolders = this.folders.filter(folder =>
       folder.name.toLowerCase().includes(query)
     );
   }
 
   selectFolder(folder: Folder) {
     this.selectedFolder = folder;
-    this.selectedImage = folder.images[0] || null; 
+    this.selectedImage = folder.images[0] || null;
+    this.currentImg = 1; // Reiniciar el índice de la imagen actual
+    this.updateImg(); // Actualizar el carrusel
   }
 
-  selectImage(image: Image) {
-    this.selectedImage = image;
+  selectImage(image: number) {
+    // this.selectedImage = image;
+    this.currentImg=image+1;
+    this.updateImg();
+  }
+
+  updateImg() {
+    const IMAGE_WIDTH = 500;
+    const $imageContainer = document.querySelector('.image-container') as HTMLElement;
+    const imagesLength = this.selectedFolder ? this.selectedFolder.images.length : 0;
+    if (this.currentImg > imagesLength) {
+      this.currentImg = 1;
+    } else if (this.currentImg < 1) {
+      this.currentImg = imagesLength;
+    }
+    $imageContainer.style.transform = `translateX(-${(this.currentImg - 1) * IMAGE_WIDTH}px)`;
+  }
+
+  prevImg() {
+    this.currentImg--;
+    this.updateImg();
+  }
+
+  nextImg() {
+    this.currentImg++;
+    this.updateImg();
   }
 }

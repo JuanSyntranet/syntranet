@@ -45,22 +45,30 @@
       <!-- Main Content -->
       <div class="main-content w-2/3 p-4 flex flex-col">
         <!-- Large Image View -->
-        <div
-          class="large-image flex-grow mb-4 bg-gray-300 rounded-xl flex justify-center items-center"
-        >
-          <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name" class="max-w-full max-h-full"/>
-          <span *ngIf="!selectedImage" class="text-[25px]">Selecciona una imagen</span>
-        </div>
+         <div class="images-container">
+          <div class="slider-container">
+            <div
+            class="image-container"
+          >
+          <img *ngFor="let image of selectedFolder?.images" [src]="image.url" [alt]="image.name" class="max-w-full max-h-full"/>
+            <!-- <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name" class="max-w-full max-h-full"/> -->
+            <!-- <span *ngIf="!selectedImage" class="text-[25px]">Selecciona una imagen</span> -->
+          </div>
+          <i class="pi pi-arrow-left btn prev" (click)="prevImg()"></i>
+          <i class="pi pi-arrow-right btn next" (click)="nextImg()"></i>
+           </div>
+         </div>
+       
 
         <!-- Carousel -->
-        <div class="carousel flex space-x-2 overflow-x-auto mb-4">
+        <div class="carousel-slider flex space-x-2 overflow-x-auto mb-4">
           <div *ngIf="!selectedFolder?.images" class="w-[100%] text-[25px] flex justify-center items-center border border-gray-400 rounded-xl">
             <span>Selecciona carpeta</span>
           </div>
           <div
-            *ngFor="let image of selectedFolder?.images"
+            *ngFor="let image of selectedFolder?.images; let i=index"
             class="small-image rounded-xl bg-gray-400 p-4 min-w-[100px] cursor-pointer"
-            (click)="selectImage(image)"
+            (click)="selectImage(i)"
           >
             <img [src]="image.url" [alt]="image.name" class="max-w-full max-h-full"/>
           </div>
@@ -92,7 +100,7 @@
       <div
         class="large-image-tablet rounded-xl sm:large-image-mobile flex-grow mb-4 bg-gray-300 flex justify-center items-center"
       >
-        <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name" class="max-w-full max-h-full"/>
+        <img *ngIf="selectedImage" [src]="selectedImage.url" [alt]="selectedImage.name"/>
         <span *ngIf="!selectedImage" class=" text-[20px]">Selecciona una imagen</span>
       </div>
 
@@ -102,9 +110,9 @@
           <span>Selecciona carpeta</span>
         </div>
         <div
-          *ngFor="let image of selectedFolder?.images"
+          *ngFor="let image of selectedFolder?.images; let i = index"
           class="small-image bg-gray-400 rounded-xl p-4 min-w-[100px] cursor-pointer"
-          (click)="selectImage(image)"
+          (click)="selectImage(i)"
         >
           <img [src]="image.url" [alt]="image.name" class="max-w-full max-h-full"/>
         </div>
